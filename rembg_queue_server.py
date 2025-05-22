@@ -6,6 +6,7 @@ import aiofiles
 import logging
 import httpx
 import urllib.parse
+from datetime import datetime
 
 # --- CREATE DIRECTORIES AT THE VERY TOP 2 ---
 UPLOADS_DIR_STATIC = "/workspace/uploads"
@@ -219,6 +220,7 @@ async def image_processing_worker(worker_id: int):
 
     while True:
         job_id, image_source_str, model_name, post_process_flag = await queue.get()
+        jobStart = datetime.now()
         logger.info(f"Worker {worker_id} picked up job {job_id} for source: {image_source_str}")
         if job_id not in results:
             logger.error(f"Worker {worker_id}: Job ID {job_id} from queue not found in results dict. Skipping.")
@@ -240,10 +242,16 @@ async def image_processing_worker(worker_id: int):
                 logger.info(f"Worker {worker_id}: Reading local file {local_path_from_uri} for job {job_id}")
 
             elif image_source_str.startswith(("http://", "https://")):
+                
                 results[job_id]["status"] = "downloading"
+                startDownload = datetime.now()
+                
                 async with httpx.AsyncClient(timeout=HTTP_CLIENT_TIMEOUT) as client:
                     img_response = await client.get(image_source_str)
                     img_response.raise_for_status()
+                    
+                endDownload = datetime.now()
+                logger.info(f"Job {job_id}: Time to download {startDownload - endDownload}")
                 
                 input_bytes_for_rembg = await img_response.aread()
                 original_content_type_header = img_response.headers.get("content-type", "unknown")
@@ -335,7 +343,8 @@ async def image_processing_worker(worker_id: int):
 
             results[job_id]["status"] = "done"
             results[job_id]["processed_path"] = processed_file_path
-            logger.info(f"Worker {worker_id} finished job {job_id}. Processed: {processed_file_path}")
+            jobEnd = datetime.now()
+            logger.info(f"Worker {worker_id} finished job {job_id}. Time {jobEnd-jobStart}. Processed: {processed_file_path}")
 
         except FileNotFoundError as e:
             logger.error(f"Worker {worker_id} FileNotFoundError for job {job_id}: {e}", exc_info=False)
