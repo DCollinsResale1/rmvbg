@@ -1,4 +1,4 @@
-onnxruntime
+onnxruntime-gpu
 rembg[rocm]
 watchdog
 asyncer
