@@ -1,4 +1,4 @@
-rembg[gpu]
+rembg[rocm]
 watchdog
 asyncer
 aiohttp
