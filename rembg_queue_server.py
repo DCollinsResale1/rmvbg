@@ -251,7 +251,7 @@ async def image_processing_worker(worker_id: int):
                     img_response.raise_for_status()
                     
                 endDownload = datetime.now()
-                logger.info(f"Job {job_id}: Time to download {startDownload - endDownload}")
+                logger.info(f"Job {job_id}: Time to download {endDownload - startDownload}")
                 
                 input_bytes_for_rembg = await img_response.aread()
                 original_content_type_header = img_response.headers.get("content-type", "unknown")
