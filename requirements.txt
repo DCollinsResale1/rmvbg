@@ -1,5 +1,5 @@
-onnxruntime
-rembg[rocm]
+onnxruntime-gpu
+rembg[gpu]
 watchdog
 asyncer
 aiohttp
