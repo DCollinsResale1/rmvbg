@@ -288,7 +288,7 @@ async def image_processing_worker(worker_id: int):
                 raise ValueError(f"Image content for rembg is None for job {job_id}.")
 
             results[job_id]["status"] = "processing_rembg"
-            session = new_session(model_name, providers=ort.get_available_providers())
+            session = new_session(model_name, providers=['ROCMExecutionProvider', 'CPUExecutionProvider'])
             output_bytes_with_alpha = remove(input_bytes_for_rembg, session=session, post_process_mask=post_process_flag)
             
             results[job_id]["status"] = "processing_pil"
