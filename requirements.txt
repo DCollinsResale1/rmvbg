@@ -1,4 +1,3 @@
-onnxruntime-gpu
 rembg[gpu]
 watchdog
 asyncer
