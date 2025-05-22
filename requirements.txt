@@ -1,3 +1,4 @@
+onnxruntime
 rembg[rocm]
 watchdog
 asyncer
