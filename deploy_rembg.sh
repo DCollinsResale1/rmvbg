@@ -33,6 +33,7 @@ source venv/bin/activate
 
 echo "📦 Installing Python dependencies..."
 pip install --upgrade pip
+pip install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-6.4.1/
 pip install -r requirements.txt
 
 echo "🚀 Launching server in tmux..."
