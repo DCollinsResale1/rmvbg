@@ -1,4 +1,5 @@
 onnxruntime
+onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-6.4.1/
 rembg[rocm]
 watchdog
 asyncer
