@@ -11,7 +11,7 @@ cd /workspace
 if [ -d "rmvbg" ]; then
     echo "⚠️  Directory 'rmvbg' already exists. Skipping clone."
 else
-    git -b DCollinsResale1-AMD --single-branch -c credential.helper= clone https://github.com/DCollinsResale1/rmvbg.git
+    git -c credential.helper= clone https://github.com/DCollinsResale1/rmvbg.git
 fi
 
 cd rmvbg
