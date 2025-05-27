@@ -37,9 +37,11 @@ pip install -r requirements.txt
 pip3 uninstall -y onnxruntime-rocm
 pip install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-6.4.1/
 
+# Remove rocm 6.1
 cd /opt
 rm -rf rocm* amdgpu
 
+# Install rocm 6.4
 cd /workspace
 wget https://repo.radeon.com/amdgpu-install/6.4.1/ubuntu/jammy/amdgpu-install_6.4.60401-1_all.deb
 sudo apt install ./amdgpu-install_6.4.60401-1_all.deb
