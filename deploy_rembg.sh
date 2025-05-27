@@ -11,7 +11,7 @@ cd /workspace
 if [ -d "rmvbg" ]; then
     echo "⚠️  Directory 'rmvbg' already exists. Skipping clone."
 else
-    git -c credential.helper= clone https://github.com/justinrumpf/rmvbg.git
+    git -c credential.helper= clone https://github.com/DCollinsResale1/rmvbg.git
 fi
 
 cd rmvbg
