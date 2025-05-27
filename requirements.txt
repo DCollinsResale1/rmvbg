@@ -1,5 +1,4 @@
 onnxruntime
-rembg[rocm]
 watchdog
 asyncer
 aiohttp
