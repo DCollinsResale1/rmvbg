@@ -315,6 +315,18 @@ async def image_processing_worker(worker_id: int):
             logger.info(f"Job {job_id} (Worker {worker_id}): Starting rembg processing (model: {model_name})...")
             t_rembg_start = time.perf_counter()
             session = new_session(model_name)
+            session.inner_session.set_providers(
+                providers = [
+                    ('CUDAExecutionProvider', {
+                        'device_id': 0,
+                        'arena_extend_strategy': 'kNextPowerOfTwo',
+                        'gpu_mem_limit': 2 * 1024 * 1024 * 1024,
+                        'cudnn_conv_algo_search': 'EXHAUSTIVE',
+                        'do_copy_in_default_stream': True,
+                    }),
+                    'CPUExecutionProvider',
+                ]
+            )
             output_bytes_with_alpha = remove(
                 input_bytes_for_rembg,
                 session=session,
