@@ -33,7 +33,7 @@ source venv/bin/activate
 echo "📦 Installing Python dependencies..."
 pip install --upgrade pip
 pip install -r requirements.txt
-pip install -y rembg[gpu]
+pip install rembg[gpu]
 pip install onnxruntime-gpu
 pip install --pre --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/ORT-Nightly/pypi/simple/ onnxruntime-gpu
 
