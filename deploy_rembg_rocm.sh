@@ -40,6 +40,7 @@ pip install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-
 # Remove rocm 6.1
 cd /opt
 rm -rf rocm* amdgpu
+apt autoremove
 
 # Install rocm 6.4
 cd /workspace
