@@ -276,9 +276,9 @@ def remove(
 
     #replace predict is explicit calculations
     #masks = session.predict(img, *args, **kwargs)
-    ort_outs = self.inner_session.run(
+    ort_outs = session.inner_session.run(
         None,
-        self.normalize(
+        session.normalize(
             img, (0.485, 0.456, 0.406), (0.229, 0.224, 0.225), (320, 320)
         ),
     )
