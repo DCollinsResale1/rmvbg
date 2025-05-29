@@ -20,9 +20,10 @@ from pymatting.foreground.estimate_foreground_ml import estimate_foreground_ml
 from pymatting.util.util import stack_images
 from scipy.ndimage import binary_erosion
 
-from .session_factory import new_session
-from .sessions import sessions, sessions_names
-from .sessions.base import BaseSession
+#move the 
+from rembg.session_factory import new_session
+from rembg.sessions import sessions, sessions_names
+from rembg.sessions.base import BaseSession
 
 ort.set_default_logger_severity(3)
 
