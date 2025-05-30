@@ -38,15 +38,23 @@ pip3 uninstall -y onnxruntime-rocm
 pip install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-6.4.1/
 pip install rembg[rocm]
 
-# Remove rocm 6.1
-cd /opt
-rm -rf rocm* amdgpu
-apt -y autoremove
+
+
 
 # Install rocm 6.4
 cd /workspace
+rm ./amdgpu-install_6.4.60401-1_all.deb
 wget https://repo.radeon.com/amdgpu-install/6.4.1/ubuntu/jammy/amdgpu-install_6.4.60401-1_all.deb
-apt -o Dpkg::Options::="--force-confnew" install ./amdgpu-install_6.4.60401-1_all.deb
+
+# Remove rocm 6.1
+cd /opt
+if [ ! -d "rocm-6.1*" ]; then
+    echo "Removing rocm 6.1.0"
+    rm -rf rocm* amdgpu
+    apt -y autoremove
+    apt -o Dpkg::Options::="--force-confnew" -y install ./amdgpu-install_6.4.60401-1_all.deb
+fi
+
 amdgpu-install -y --usecase=rocm
 
 echo "🚀 Launching server in tmux..."
