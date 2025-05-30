@@ -52,7 +52,7 @@ if [ ! -d "rocm-6.1*" ]; then
     echo "Removing rocm 6.1.0"
     rm -rf rocm* amdgpu
     apt -y autoremove
-    apt -o Dpkg::Options::="--force-confnew" -y install ./amdgpu-install_6.4.60401-1_all.deb
+    apt -o Dpkg::Options::="--force-confnew" -y install /workspace/amdgpu-install_6.4.60401-1_all.deb
 fi
 
 amdgpu-install -y --usecase=rocm
