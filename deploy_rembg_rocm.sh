@@ -36,6 +36,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 pip3 uninstall -y onnxruntime-rocm
 pip install onnxruntime-rocm -f https://repo.radeon.com/rocm/manylinux/rocm-rel-6.4.1/
+pip install rembg[rocm]
 
 # Remove rocm 6.1
 cd /opt
