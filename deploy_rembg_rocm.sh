@@ -46,10 +46,8 @@ apt -y autoremove
 # Install rocm 6.4
 cd /workspace
 wget https://repo.radeon.com/amdgpu-install/6.4.1/ubuntu/jammy/amdgpu-install_6.4.60401-1_all.deb
-apt -y install ./amdgpu-install_6.4.60401-1_all.deb
-echo "Amdgpu install complete\n"
-amdgpu-install -y --usecase=rocm
-echo "Rocm install complete\n"
+#apt -y install ./amdgpu-install_6.4.60401-1_all.deb
+#amdgpu-install -y --usecase=rocm
 
 echo "🚀 Launching server in tmux..."
 tmux kill-session -t rembg 2>/dev/null || true
