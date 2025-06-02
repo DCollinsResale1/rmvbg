@@ -80,7 +80,7 @@ IP_STATS_RETENTION_HOURS = 24  # Keep IP stats for 24 hours
 # --- GPU Configuration for Rembg ---
 REMBG_USE_GPU = True # User wants to force GPU, so this should be True.
 # Order matters: TensorRT > CUDA > DML. CPU is NOT a fallback here if REMBG_USE_GPU is True.
-REMBG_PREFERRED_GPU_PROVIDERS = ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'DmlExecutionProvider']
+REMBG_PREFERRED_GPU_PROVIDERS = ['ROCMExecutionProvider']
 # This list is used ONLY if REMBG_USE_GPU is False, or as a last resort if startup catastrophically fails to find any provider.
 REMBG_CPU_PROVIDERS = ['CPUExecutionProvider']
 
