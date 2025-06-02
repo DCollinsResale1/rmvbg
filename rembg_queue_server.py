@@ -328,7 +328,7 @@ def get_gpu_info():
     return gpu_data
 
 async def system_monitor():
-    while True:
+    while False:
         try:
             cpu_percent = psutil.cpu_percent(interval=1)
             memory = psutil.virtual_memory()
