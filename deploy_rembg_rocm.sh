@@ -46,9 +46,9 @@ cd /workspace
 rm ./amdgpu-install_6.4.60401-1_all.deb
 wget https://repo.radeon.com/amdgpu-install/6.4.1/ubuntu/jammy/amdgpu-install_6.4.60401-1_all.deb
 
-cd /opt
-if [ls /opt/rocm-6.1* 1> /dev/null 2>&1]; then
+if [ $(ls -d /opt/rocm-6.1* 2>/dev/null | wc -l) -gt 0 ]; then
     # Remove rocm 6.1
+    cd /opt
     echo "Removing rocm 6.1.0"
     rm -rf rocm* amdgpu
     apt -y autoremove
