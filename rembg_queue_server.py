@@ -175,7 +175,7 @@ def get_gpu_info():
 def get_amdgpu_info():
     gpu_data = {"gpu_used_mb": 0, "gpu_total_mb": 0, "gpu_utilization": 0}
     try:
-        from amdsmi import *
+        import amdsmi
         amdsmi_init()
         device = amdsmi_get_processor_handles()[0]
         mem_info = amdsmi_get_gpu_vram_usage(device)
@@ -914,7 +914,7 @@ async def shutdown_event():
         pil_executor.shutdown(wait=True)
         logger.info("PILCPU thread pool shut down.")
     try:
-        from amdsmi import *
+        import amdsmi
         amdsmi_shut_down()
         logger.info("amdsmi shutdown.")
     except AmdSmiException as e:
