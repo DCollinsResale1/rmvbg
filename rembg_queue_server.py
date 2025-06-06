@@ -172,6 +172,24 @@ def get_gpu_info():
         pass
     return gpu_data
 
+def get_amdgpu_info():
+    gpu_data = {"gpu_used_mb": 0, "gpu_total_mb": 0, "gpu_utilization": 0}
+    try:
+        from amdsmi import *
+        amdsmi_init()
+        device = amdsmi_get_processor_handles()[0]
+        mem_info = amdsmi_get_gpu_vram_usage(device)
+        utilization = amdsmi_get_gpu_activity(device) 
+        
+        gpu_data["gpu_used_mb"] = mem_info.vram_used // (1024**2)
+        gpu_data["gpu_total_mb"] = mem_info.vram_total // (1024**2)
+        gpu_data["gpu_utilization"] = utilization['gfx_activity']
+    
+    except Exception as e:
+        logger.warning(f"GPU monitoring via amdsmi failed: {type(e).__name__}: {e}.")
+    finally:
+        pass
+    return gpu_data
 
 async def system_monitor():
     while True:
@@ -895,7 +913,12 @@ async def shutdown_event():
     if pil_executor:
         pil_executor.shutdown(wait=True)
         logger.info("PILCPU thread pool shut down.")
-
+    try:
+        from amdsmi import *
+        amdsmi_shut_down()
+        logger.info("amdsmi shutdown.")
+    except AmdSmiException as e:
+        logger.info(f"Error during amdsmi shutdown (may be benign): {e}")
     try:
         import pynvml
         pynvml.nvmlShutdown()
