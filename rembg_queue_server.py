@@ -200,7 +200,7 @@ async def system_monitor():
             memory_used_gb = memory.used / (1024**3)
             memory_total_gb = memory.total / (1024**3)
 
-            gpu_info = get_gpu_info()
+            gpu_info = get_amdgpu_info()
 
             timestamp = time.time()
             metrics = {
