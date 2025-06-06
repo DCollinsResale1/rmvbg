@@ -14,6 +14,7 @@ from collections import defaultdict, deque
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from datetime import datetime, timedelta
+from pyrsmi import rocml
 
 # --- CREATE DIRECTORIES AT THE VERY TOP X99---
 UPLOADS_DIR_STATIC = "/workspace/uploads"
@@ -175,15 +176,15 @@ def get_gpu_info():
 def get_amdgpu_info():
     gpu_data = {"gpu_used_mb": 0, "gpu_total_mb": 0, "gpu_utilization": 0}
     try:
-        import amdsmi
-        amdsmi_init()
-        device = amdsmi_get_processor_handles()[0]
-        mem_info = amdsmi_get_gpu_vram_usage(device)
-        utilization = amdsmi_get_gpu_activity(device) 
+        rocml.smi_initialize()
+        device = 0
+        mem_used = rocml.smi_get_device_memory_used(device)
+        mem_total = rocml.smi_get_device_memory_total(device)
+        utilization = rocml.smi_get_device_utilization(device) 
         
-        gpu_data["gpu_used_mb"] = mem_info.vram_used // (1024**2)
-        gpu_data["gpu_total_mb"] = mem_info.vram_total // (1024**2)
-        gpu_data["gpu_utilization"] = utilization['gfx_activity']
+        gpu_data["gpu_used_mb"] = mem_used // (1024**2)
+        gpu_data["gpu_total_mb"] = mem_total // (1024**2)
+        gpu_data["gpu_utilization"] = utilization
     
     except Exception as e:
         logger.warning(f"GPU monitoring via amdsmi failed: {type(e).__name__}: {e}.")
